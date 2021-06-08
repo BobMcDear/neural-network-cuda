@@ -16,7 +16,7 @@ void linear_forward_cpu(float *inp, float *weights, float *bias, float *out, int
             }
         }
     }
-    print_array(out, bs*n_out);
+    //print_array(out, bs*n_out);
 }
 
 void linear_backward_cpu(float *inp, float *weights, float *out, int bs, int n_in, int n_out){

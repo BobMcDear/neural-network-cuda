@@ -27,7 +27,7 @@ int n_zeros(float *a, int n){
 }
 
 void fill_array(float *a, int n, int k){
-    srand(time(NULL)+k);
+    srand(1);//time(NULL)+k);
     float r;
     
     for (int i=0; i<n; i++){
