@@ -1,6 +1,7 @@
-#include "sequential_gpu.h"
+#include "sequential.h"
 
-void sequential_forward_gpu(float *inp, std::vector<Module*> layers, float *out){
+
+void sequential_forward(float *inp, std::vector<Module*> layers, float *out){
     int sz_out;
     float *curr_out;
 
@@ -16,7 +17,8 @@ void sequential_forward_gpu(float *inp, std::vector<Module*> layers, float *out)
     }
 }
 
-void sequetial_update_gpu(std::vector<Module*> layers){
+
+void sequetial_update(std::vector<Module*> layers){
     for (int i=layers.size()-1; 0<=i; i--){
         Module *layer = layers[i];
 
@@ -25,14 +27,17 @@ void sequetial_update_gpu(std::vector<Module*> layers){
     }
 }
 
+
 Sequential_GPU::Sequential_GPU(std::vector<Module*> _layers){
     layers = _layers;
 }
 
+
 void Sequential_GPU::forward(float *inp, float *out){
-    sequential_forward_gpu(inp, layers, out);
+    sequential_forward(inp, layers, out);
 }
 
+
 void Sequential_GPU::update(){
-    sequetial_update_gpu(layers);
+    sequetial_update(layers);
 }

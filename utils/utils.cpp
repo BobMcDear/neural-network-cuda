@@ -5,6 +5,7 @@
 
 #include "utils.h"
 
+
 float max_diff(float *res1, float *res2, int n){
     float diff, r = 0;
 
@@ -16,6 +17,7 @@ float max_diff(float *res1, float *res2, int n){
     return r;
 }
 
+
 int n_zeros(float *a, int n){
     int r = 0;
 
@@ -25,6 +27,7 @@ int n_zeros(float *a, int n){
     
     return r;
 }
+
 
 void fill_array(float *a, int n, int k){
     srand(1);//time(NULL)+k);
@@ -36,6 +39,7 @@ void fill_array(float *a, int n, int k){
     }
 }
 
+
 void test_res(float *res1, float *res2, int n){
     int n_res1_zeros = n_zeros(res1, n), n_res2_zeros = n_zeros(res2, n);
     float mx = max_diff(res1, res2, n);
@@ -45,6 +49,7 @@ void test_res(float *res1, float *res2, int n){
     std::cout << "Maximum difference: " << mx << std::endl;
 }
 
+
 void print_array(float *a, int n){
     for (int i=0; i<n; i++){
         std::cout << a[i] << std::endl;
@@ -52,11 +57,13 @@ void print_array(float *a, int n){
     std::cout << "*********" << std::endl;
 }
 
+
 void init_zero(float *a, int n){
     for (int i=0; i<n; i++){
         a[i] = 0.0f;
     }
 }
+
 
 void set_eq(float *a, float *b, int n){
     for (int i=0; i<n; i++){

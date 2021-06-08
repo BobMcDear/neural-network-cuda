@@ -1,9 +1,11 @@
-#ifndef SEQUENTIAL_CPU_H
-#define SEQUENTIAL_CPU_H
+#ifndef SEQUENTIAL_H
+#define SEQUENTIAL_H
+
 
 #include <vector>
 
 #include "../utils/module.h"
+
 
 class Sequential_CPU: public Module{
     public:
@@ -13,5 +15,6 @@ class Sequential_CPU: public Module{
         void forward(float *inp, float *out);
         void update();
 };
+
 
 #endif

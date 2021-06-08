@@ -1,7 +1,9 @@
-#ifndef LINEAR_CPU_H
-#define LINEAR_CPU_H
+#ifndef LINEAR_H
+#define LINEAR_H
+
 
 #include "../utils/module.h"
+
 
 class Linear_CPU: public Module{
     public:
@@ -13,5 +15,6 @@ class Linear_CPU: public Module{
         void backward();
         void update();
 };
+
 
 #endif

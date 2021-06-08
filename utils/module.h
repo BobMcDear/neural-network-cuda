@@ -1,7 +1,7 @@
 #ifndef MODULE_H
 #define MODULE_H
 
-#define block_size 1
+#define block_size 32
 
 class Module{
     public:

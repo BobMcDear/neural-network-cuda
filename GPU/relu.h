@@ -1,7 +1,9 @@
-#ifndef RELU_GPU_H
-#define RELU_GPU_H
+#ifndef RELU_H
+#define RELU_H
+
 
 #include "../utils/module.h"
+
 
 class ReLU_GPU: public Module{
     public:
@@ -11,5 +13,6 @@ class ReLU_GPU: public Module{
         void forward(float *_inp, float *_out);
         void backward();
 };
+
 
 #endif

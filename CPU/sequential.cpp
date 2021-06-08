@@ -1,6 +1,7 @@
-#include "sequential_cpu.h"
+#include "sequential.h"
 
-void sequential_forward_cpu(float *inp, std::vector<Module*> layers, float *out){
+
+void sequential_forward(float *inp, std::vector<Module*> layers, float *out){
     int sz_out;
     float *curr_out;
 
@@ -17,7 +18,8 @@ void sequential_forward_cpu(float *inp, std::vector<Module*> layers, float *out)
     }
 }
 
-void sequetial_update_cpu(std::vector<Module*> layers){
+
+void sequetial_update(std::vector<Module*> layers){
     for (int i=layers.size()-1; 0<=i; i--){
         Module *layer = layers[i];
 
@@ -26,14 +28,17 @@ void sequetial_update_cpu(std::vector<Module*> layers){
     }
 }
 
+
 Sequential_CPU::Sequential_CPU(std::vector<Module*> _layers){
     layers = _layers;
 }
 
+
 void Sequential_CPU::forward(float *inp, float *out){
-    sequential_forward_cpu(inp, layers, out);
+    sequential_forward(inp, layers, out);
 }
 
+
 void Sequential_CPU::update(){
-    sequetial_update_cpu(layers);
+    sequetial_update(layers);
 }

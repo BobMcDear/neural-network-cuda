@@ -1,9 +1,11 @@
-#ifndef SEQUENTIAL_GPU_H
-#define SEQUENTIAL_GPU_H
+#ifndef SEQUENTIAL_H
+#define SEQUENTIAL_H
+
 
 #include <vector>
 
 #include "../utils/module.h"
+
 
 class Sequential_GPU: public Module{
     public:

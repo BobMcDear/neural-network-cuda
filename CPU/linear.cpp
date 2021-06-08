@@ -1,7 +1,8 @@
-#include "linear_cpu.h"
+#include "linear.h"
 #include "../utils/utils.h"
 
-void linear_forward_cpu(float *inp, float *weights, float *bias, float *out, int bs, int n_in, int n_out){
+
+void linear_forward(float *inp, float *weights, float *bias, float *out, int bs, int n_in, int n_out){
     int ind_inp, ind_weights, ind_out;
     for (int i=0; i<bs; i++){
         for (int k=0; k<n_out; k++){
@@ -16,10 +17,10 @@ void linear_forward_cpu(float *inp, float *weights, float *bias, float *out, int
             }
         }
     }
-    //print_array(out, bs*n_out);
 }
 
-void linear_backward_cpu(float *inp, float *weights, float *out, int bs, int n_in, int n_out){
+
+void linear_backward(float *inp, float *weights, float *out, int bs, int n_in, int n_out){
     int ind_inp, ind_weights, ind_out;
 
     for (int i=0; i<bs; i++){
@@ -37,7 +38,8 @@ void linear_backward_cpu(float *inp, float *weights, float *out, int bs, int n_i
 
 }
 
-void linear_update_cpu(float *inp, float *weights, float *cp_weights, float *bias, float *out, int bs, int n_in, int n_out, float lr){
+
+void linear_update(float *inp, float *weights, float *cp_weights, float *bias, float *out, int bs, int n_in, int n_out, float lr){
     int ind_inp, ind_weights, ind_out;
     
 
@@ -56,6 +58,7 @@ void linear_update_cpu(float *inp, float *weights, float *cp_weights, float *bia
     }
 }
 
+
 Linear_CPU::Linear_CPU(int _bs, int _n_in, int _n_out){
     bs = _bs;
     n_in = _n_in;
@@ -70,24 +73,27 @@ Linear_CPU::Linear_CPU(int _bs, int _n_in, int _n_out){
     init_zero(bias, n_out);
 }
 
+
 void Linear_CPU::forward(float *_inp, float *_out){
     inp = _inp;
     out = _out;
 
-    linear_forward_cpu(inp, weights, bias, out, bs, n_in, n_out);
+    linear_forward(inp, weights, bias, out, bs, n_in, n_out);
 }
+
 
 void Linear_CPU::backward(){
     init_zero(inp, bs*n_in);
 
-    linear_backward_cpu(inp, cp_weights, out, bs, n_in, n_out);
+    linear_backward(inp, cp_weights, out, bs, n_in, n_out);
 
     delete [] cp_weights;
 }
+
 
 void Linear_CPU::update(){
     cp_weights = new float[n_in*n_out];
     set_eq(cp_weights, weights, n_in*n_out);
 
-    linear_update_cpu(inp, weights, cp_weights, bias, out, bs, n_in, n_out, 0.1f);
+    linear_update(inp, weights, cp_weights, bias, out, bs, n_in, n_out, 0.1f);
 }

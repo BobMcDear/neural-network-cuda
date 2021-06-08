@@ -1,7 +1,9 @@
-#ifndef RELU_CPU_H
-#define RELU_CPU_H
+#ifndef RELU_H
+#define RELU_H
+
 
 #include "../utils/module.h"
+
 
 class ReLU_CPU: public Module{
     public:
@@ -9,5 +11,6 @@ class ReLU_CPU: public Module{
         void forward(float *_inp, float *_out);
         void backward();
 };
+
 
 #endif

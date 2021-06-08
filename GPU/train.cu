@@ -5,8 +5,8 @@
 #include "../utils/utils.h"
 
 
-void train(Sequential_CPU seq, float *inp, float *targ, int bs, int n_in, int n_epochs){
-    MSE_CPU mse(bs);
+void train(Sequential_GPU seq, float *inp, float *targ, int bs, int n_in, int n_epochs){
+    MSE_GPU mse(bs);
     float *out;
 
     for (int i=0; i<n_epochs; i++){

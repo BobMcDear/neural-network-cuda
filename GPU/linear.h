@@ -1,7 +1,9 @@
-#ifndef LINEAR_GPU_H
-#define LINEAR_GPU_H
+#ifndef LINEAR_H
+#define LINEAR_H
+
 
 #include "../utils/module.h"
+
 
 class Linear_GPU: public Module{
     public:
@@ -13,5 +15,6 @@ class Linear_GPU: public Module{
         void backward();
         void update();
 };
+
 
 #endif
