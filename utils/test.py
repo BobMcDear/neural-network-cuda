@@ -30,7 +30,6 @@ def train(net, inp, targ, n_epochs=10):
         loss = mse(pred, targ)
     print(f'The final loss is: {loss}')
     
-import torch
 def main(bs=100000, n_in=100, n_epochs=10):
     n_hidden1 = n_in//2
     n_hidden2 = n_in//4
