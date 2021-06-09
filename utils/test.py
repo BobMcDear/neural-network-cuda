@@ -6,8 +6,8 @@ from torch.nn import Linear, MSELoss, ReLU, Sequential
 
 
 def get_data(bs=100000, n_in=100, device='cuda'):
-    inp = tensor(read_csv('../data/x.csv', sep='\n', header=None).values.astype("float32")).view(bs, n_in).to(device)
-    targ = tensor(read_csv('../data/y.csv', sep='\n', header=None).values.astype("float32")).to(device)
+    inp = tensor(read_csv('../data/x.csv', sep='\n', header=None).values.astype('float32')).view(bs, n_in).to(device)
+    targ = tensor(read_csv('../data/y.csv', sep='\n', header=None).values.astype('float32')).to(device)
     return inp, targ
 
 
