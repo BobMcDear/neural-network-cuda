@@ -30,7 +30,7 @@ int n_zeros(float *a, int n){
 
 
 void fill_array(float *a, int n, int k){
-    srand(1);//time(NULL)+k);
+    srand(time(NULL)+k);
     float r;
     
     for (int i=0; i<n; i++){
@@ -68,5 +68,15 @@ void init_zero(float *a, int n){
 void set_eq(float *a, float *b, int n){
     for (int i=0; i<n; i++){
         a[i] = b[i];
+    }
+}
+
+
+void kaiming_init(float *w, int n_in, int n_out){
+    std::default_random_engine eng(time(0));
+	std::normal_distribution<float> gen(0, sqrt(2/n_in));
+
+    for (int i=0; i<n_in*n_out; i++){
+        w[i] = gen(eng);
     }
 }
