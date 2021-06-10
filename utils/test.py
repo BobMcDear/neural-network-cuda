@@ -56,8 +56,8 @@ if __name__ == '__main__':
     parser.add_argument('--n_epochs', default=10)
     args = parser.parse_args()
 
-    bs = args.bs
-    n_in = args.n_in
-    n_epochs = args.n_epochs
+    bs = int(args.bs)
+    n_in = int(args.n_in)
+    n_epochs = int(args.n_epochs)
 
     main(bs, n_in, n_epochs)

@@ -45,7 +45,7 @@ if __name__ == '__main__':
     parser.add_argument('--n_in', default=100)
     args = parser.parse_args()
 
-    bs = args.bs
-    n_in = args.n_in
+    bs = int(args.bs)
+    n_in = int(args.n_in)
 
     main(bs, n_in)
