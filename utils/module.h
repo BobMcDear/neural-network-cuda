@@ -3,6 +3,7 @@
 
 #define block_size 32
 
+
 class Module{
     public:
         float *inp, *out;
@@ -12,5 +13,6 @@ class Module{
         virtual void backward(){};
         virtual void update(){};
 };
+
 
 #endif
