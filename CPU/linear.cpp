@@ -70,7 +70,7 @@ Linear_CPU::Linear_CPU(int _bs, int _n_in, int _n_out){
     bias = new float[n_out]; 
 
     kaiming_init(weights, n_in, n_out);
-    fill_array(bias, n_out);
+    init_zero(bias, n_out);
 }
 
 

@@ -15,7 +15,7 @@ void linear_forward(float *inp, float *weights, float *bias, float *out, int bs,
             ind_inp = row*n_in + i;
             ind_weights = i*n_out + col;
             
-            atomicAdd(&out[ind_out], inp[ind_inp]*weights[ind_weights]);
+            out[ind_out] += inp[ind_inp]*weights[ind_weights];
         }
     }
 }
@@ -33,7 +33,7 @@ void linear_backward(float *inp, float *weights, float *out, int bs, int n_in, i
             ind_inp = row*n_in + i;
             ind_weights = i*n_out + col;
 
-            atomicAdd(&inp[ind_inp], weights[ind_weights]*out[ind_out]);
+            inp[ind_inp] += weights[ind_weights]*out[ind_out];
         }
     }
 }
@@ -52,7 +52,7 @@ void linear_update(float *inp, float *weights, float *bias, float *out, int bs, 
             ind_inp = row*n_in + i;
             ind_weights = i*n_out + col;
 
-            atomicAdd(&weights[ind_weights], -lr*(inp[ind_inp]*out[ind_out]));
+            weights[ind_weights] -= lr*(inp[ind_inp]*out[ind_out]);
         }
     }
 }
@@ -71,7 +71,7 @@ Linear_GPU::Linear_GPU(int _bs, int _n_in, int _n_out){
     cudaMallocManaged(&bias, n_out*sizeof(float));
 
     kaiming_init(weights, n_in, n_out);
-    fill_array(bias, n_out);
+    init_zero(bias, n_out);
 }
 
 

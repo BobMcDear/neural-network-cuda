@@ -73,10 +73,13 @@ void set_eq(float *a, float *b, int n){
 
 
 void kaiming_init(float *w, int n_in, int n_out){
-    std::default_random_engine eng(time(0));
-	std::normal_distribution<float> gen(0, sqrt(2/n_in));
+    float std = sqrt(2/(float) n_in);
+    
+    std::random_device rd;
+    std::mt19937 gen(rd()); 
+    std::normal_distribution<float> dist(0.0f, std); 
 
     for (int i=0; i<n_in*n_out; i++){
-        w[i] = gen(eng);
+        w[i] = dist(gen);
     }
 }
