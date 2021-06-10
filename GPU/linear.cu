@@ -71,7 +71,7 @@ Linear_GPU::Linear_GPU(int _bs, int _n_in, int _n_out){
     cudaMallocManaged(&bias, n_out*sizeof(float));
 
     kaiming_init(weights, n_in, n_out);
-    init_zero(bias, n_out);
+    fill_array(bias, n_out);
 }
 
 
