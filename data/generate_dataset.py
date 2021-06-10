@@ -24,7 +24,7 @@ def generate_dataset(bs=100000, n_in=100):
 
 
 def save_tensor(t, name):
-    t = DataFrame(t).astype('float32')
+    t = DataFrame(t.numpy()).astype('float32')
     t.to_csv(name, sep='\n', header=False,
              index=False)
 
