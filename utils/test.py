@@ -31,7 +31,7 @@ def train(net, inp, targ, n_epochs=10):
     print(f'The final loss is: {loss}')
     
 
-def main(bs=100000, n_in=100, n_epochs=10):
+def main(bs=1000000, n_in=200, n_epochs=10):
     n_hidden1 = n_in//2
     n_hidden2 = n_in//4
     n_hidden3 = n_in//8
@@ -51,8 +51,8 @@ def main(bs=100000, n_in=100, n_epochs=10):
 
 if __name__ == '__main__':
     parser = ArgumentParser()
-    parser.add_argument('--bs', default=100000)
-    parser.add_argument('--n_in', default=100)
+    parser.add_argument('--bs', default=1000000)
+    parser.add_argument('--n_in', default=200)
     parser.add_argument('--n_epochs', default=10)
     args = parser.parse_args()
 

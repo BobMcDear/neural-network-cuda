@@ -5,7 +5,7 @@
 
 
 int main(){
-    int bs = 100000, n_in = 100, n_epochs = 10;
+    int bs = 1000000, n_in = 200, n_epochs = 10;
     int n_hidden1 = n_in/2, n_hidden2 = n_in/4, n_hidden3 = n_in/8;
     float *inp, *targ;
 
