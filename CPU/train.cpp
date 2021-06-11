@@ -5,7 +5,7 @@
 #include "../utils/utils.h"
 
 
-void train(Sequential_CPU seq, float *inp, float *targ, int bs, int n_in, int n_epochs){
+void train_cpu(Sequential_CPU seq, float *inp, float *targ, int bs, int n_in, int n_epochs){
     MSE_CPU mse(bs);
     float *out;
 

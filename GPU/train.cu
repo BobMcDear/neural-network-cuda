@@ -6,7 +6,7 @@
 #include "../utils/utils.h"
 
 
-void train(Sequential_GPU seq, float *inp, float *targ, int bs, int n_in, int n_epochs){
+void train_gpu(Sequential_GPU seq, float *inp, float *targ, int bs, int n_in, int n_epochs){
     MSE_GPU mse(bs);
     float *out;
 

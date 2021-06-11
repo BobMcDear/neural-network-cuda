@@ -13,9 +13,14 @@ int main(){
 
     for (int i=0; i<10; i++){
         std::cout << "Iteration " << i << std::endl;
+
         bs = random_int(32, 256);
         n_in = random_int(32, 64);
         n_out = random_int(1, 32);
+        
+        sz_inp = bs*n_in;
+        sz_weights = n_in*n_out;
+        sz_out = bs*n_out;
 
         get_data(inp_cpu, out_cpu, inp_gpu, out_gpu, bs, n_in, n_out);
 
@@ -25,7 +30,24 @@ int main(){
     
         lin_cpu.forward(inp_cpu, out_cpu);
         lin_gpu.forward(inp_gpu, out_gpu);
-        test_res(out_cpu, out_gpu, sz_out);    
+
+        std::cout << "Result of the forward pass" << std::endl; 
+        test_res(lin_cpu.out, lin_gpu.out, sz_out);    
+
+        lin_cpu.backward();
+        lin_cpu.backward();
+
+        std::cout << "Result of the backward pass" << std::endl; 
+        test_res(lin_cpu.inp, lin_gpu.inp, sz_inp);
+
+        lin_cpu.update();
+        lin_gpu.update();
+
+        std::cout << "Result of the update" << std::endl;
+        std::cout << "Weights" << std::endl;
+        test_res(lin_cpu.weights, lin_gpu.weights, sz_weights);
+        std::cout << "Bias" << std::endl;
+        test_res(lin_cpu.bias, lin_gpu.bias, n_out);
     }
     
     return 0;
