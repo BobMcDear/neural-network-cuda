@@ -3,7 +3,7 @@
 
 
 __global__
-void relu_forward(float *inp, float *out, int sz_out){
+void relu_forward_gpu(float *inp, float *out, int sz_out){
     int ind = blockDim.x*blockIdx.x + threadIdx.x;
     
     if (ind < sz_out){
@@ -13,7 +13,7 @@ void relu_forward(float *inp, float *out, int sz_out){
 
 
 __global__
-void relu_backward(float *inp, float *out, int sz_out){
+void relu_backward_gpu(float *inp, float *out, int sz_out){
     int ind = blockDim.x*blockIdx.x + threadIdx.x;
     
     if (ind < sz_out){
@@ -32,7 +32,7 @@ void ReLU_GPU::forward(float *_inp, float *_out){
     inp = _inp;
     out = _out;
 
-    relu_forward<<<n_blocks, block_size>>>(inp, out, sz_out);
+    relu_forward_gpu<<<n_blocks, block_size>>>(inp, out, sz_out);
     cudaDeviceSynchronize();
 }
 
@@ -40,6 +40,6 @@ void ReLU_GPU::forward(float *_inp, float *_out){
 void ReLU_GPU::backward(){
     int n_blocks = (sz_out + block_size - 1) / block_size;
     
-    relu_backward<<<n_blocks, block_size>>>(inp, out, sz_out);
+    relu_backward_gpu<<<n_blocks, block_size>>>(inp, out, sz_out);
     cudaDeviceSynchronize();
 }

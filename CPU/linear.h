@@ -1,5 +1,5 @@
-#ifndef LINEAR_H
-#define LINEAR_H
+#ifndef LINEAR_CPU_H
+#define LINEAR_CPU_H
 
 
 #include "../utils/module.h"

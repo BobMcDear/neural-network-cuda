@@ -4,7 +4,7 @@
 
 
 __global__
-void mse_forward(float *inp, float *out, int sz_out){
+void mse_forward_gpu(float *inp, float *out, int sz_out){
     int ind = blockDim.x*blockIdx.x + threadIdx.x;
 
     if (ind < sz_out){
@@ -14,7 +14,7 @@ void mse_forward(float *inp, float *out, int sz_out){
 
 
 __global__
-void mse_backward(float *inp, float *out, int sz_out){
+void mse_backward_gpu(float *inp, float *out, int sz_out){
     int ind = blockDim.x*blockIdx.x + threadIdx.x;
 
     if (ind < sz_out){
@@ -37,12 +37,12 @@ void MSE_GPU::forward(float *_inp, float *_out){
 
 void MSE_GPU::_forward(float *_inp, float *_out){
     _out[sz_out] = 0.0f;
-    mse_forward<<<n_blocks, block_size>>>(_inp, _out, sz_out);
+    mse_forward_gpu<<<n_blocks, block_size>>>(_inp, _out, sz_out);
     cudaDeviceSynchronize();
 }
 
 
 void MSE_GPU::backward(){
-    mse_backward<<<n_blocks, block_size>>>(inp, out, sz_out);
+    mse_backward_gpu<<<n_blocks, block_size>>>(inp, out, sz_out);
     cudaDeviceSynchronize();
 }

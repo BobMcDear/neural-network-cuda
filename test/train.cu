@@ -9,6 +9,7 @@
 #include "../GPU/train.h"
 #include "../utils/utils.h"
 
+
 int main(){
     int bs, n_in, n_hidden, n_epochs;
     int sz_inp, sz_weights1;
@@ -25,22 +26,34 @@ int main(){
         sz_inp = bs*n_in;
         sz_weights1 = n_in*n_hidden;
 
-        get_data(inp_cpu, out_cpu, inp_gpu, out_gpu, bs, n_in, n_out);
+        inp_cpu = new float[sz_inp];
+        out_cpu = new float[bs];
+        
+        cudaMallocManaged(&inp_gpu, sz_inp*sizeof(float));
+        cudaMallocManaged(&out_gpu, bs*sizeof(float));
 
+        fill_array(inp_cpu, sz_inp);
+        set_eq(inp_gpu, inp_cpu, sz_inp);
+        
+        fill_array(out_cpu, bs);
+        set_eq(out_gpu, out_cpu, bs);
+        
         Linear_CPU* lin1_cpu = new Linear_CPU(bs, n_in, n_hidden);
         Linear_GPU* lin1_gpu = new Linear_GPU(bs, n_in, n_hidden);
+        set_eq(lin1_gpu->weights, lin1_cpu->weights, sz_weights1);
         
         ReLU_CPU* relu1_cpu = new ReLU_CPU(bs*n_hidden);
         ReLU_GPU* relu1_gpu = new ReLU_GPU(bs*n_hidden);
 
         Linear_CPU* lin2_cpu = new Linear_CPU(bs, n_hidden, 1);
         Linear_GPU* lin2_gpu = new Linear_GPU(bs, n_hidden, 1);
+        set_eq(lin2_gpu->weights, lin2_cpu->weights, n_hidden);
 
         std::vector<Module*> layers_cpu = {lin1_cpu, relu1_cpu, lin2_cpu};
         std::vector<Module*> layers_gpu = {lin1_gpu, relu1_gpu, lin2_gpu};
 
         Sequential_CPU seq_cpu(layers_cpu);
-        Sequential_GPU seq_gpu(layers_gpu)
+        Sequential_GPU seq_gpu(layers_gpu);
 
         std::cout << "Result of train" << std::endl;
         std::cout << "CPU" << std::endl;

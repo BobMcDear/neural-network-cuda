@@ -1,14 +1,14 @@
 #include "relu.h"
 
 
-void relu_forward(float *inp, float *out, int sz_out){
+void relu_forward_cpu(float *inp, float *out, int sz_out){
     for (int i=0; i<sz_out; i++){
         out[i] = (0 < inp[i]) ? inp[i] : 0;
     }
 }
 
 
-void relu_backward(float *inp, float *out, int sz_out){
+void relu_backward_cpu(float *inp, float *out, int sz_out){
     for (int i=0; i<sz_out; i++){
         inp[i] = (0 < inp[i]) * out[i];
     }
@@ -24,10 +24,10 @@ void ReLU_CPU::forward(float *_inp, float *_out){
     inp = _inp;
     out = _out;
 
-    relu_forward(inp, out, sz_out);
+    relu_forward_cpu(inp, out, sz_out);
 }
 
 
 void ReLU_CPU::backward(){
-    relu_backward(inp, out, sz_out);
+    relu_backward_cpu(inp, out, sz_out);
 }

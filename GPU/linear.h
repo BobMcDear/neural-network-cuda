@@ -1,5 +1,5 @@
-#ifndef LINEAR_H
-#define LINEAR_H
+#ifndef LINEAR_GPU_H
+#define LINEAR_GPU_H
 
 
 #include "../utils/module.h"

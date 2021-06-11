@@ -7,7 +7,7 @@
 
 
 int main(){
-    int bs, n_in = 1, n_out = 1;
+    int bs;
     float *inp_cpu, *out_cpu, *inp_gpu, *out_gpu;
 
     for (int i=0; i<10; i++){
@@ -15,8 +15,15 @@ int main(){
         
         bs = random_int(32, 2048);
 
-        get_data(inp_cpu, out_cpu, inp_gpu, out_gpu, bs+1, n_in, n_out);
-
+        inp_cpu = new float[sz_inp];
+        out_cpu = new float[sz_out];
+    
+        cudaMallocManaged(&inp_gpu, bs*sizeof(float));
+        cudaMallocManaged(&out_gpu, bs*sizeof(float));
+    
+        fill_array(inp_cpu, bs);
+        set_eq(inp_gpu, inp_cpu, bs);
+        
         MSE_CPU mse_cpu(bs);
         MSE_GPU mse_gpu(bs);
     

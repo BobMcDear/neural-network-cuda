@@ -1,5 +1,5 @@
-#ifndef MSE_H
-#define MSE_H
+#ifndef MSE_CPU_H
+#define MSE_CPU_H
 
 
 #include "../utils/module.h"

@@ -1,5 +1,5 @@
-#ifndef TRAIN_H
-#define TRAIN_H
+#ifndef TRAIN_CPU_H
+#define TRAIN_CPU_H
 
 
 #include "sequential.h"

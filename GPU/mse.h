@@ -1,5 +1,5 @@
-#ifndef MSE_H
-#define MSE_H
+#ifndef MSE_GPU_H
+#define MSE_GPU_H
 
 
 #include "../utils/module.h"

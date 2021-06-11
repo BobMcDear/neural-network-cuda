@@ -1,5 +1,5 @@
-#ifndef SEQUENTIAL_H
-#define SEQUENTIAL_H
+#ifndef SEQUENTIAL_CPU_H
+#define SEQUENTIAL_CPU_H
 
 
 #include <vector>

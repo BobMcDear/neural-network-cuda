@@ -1,5 +1,5 @@
-#ifndef RELU_H
-#define RELU_H
+#ifndef RELU_CPU_H
+#define RELU_CPU_H
 
 
 #include "../utils/module.h"

@@ -1,5 +1,5 @@
-#ifndef RELU_H
-#define RELU_H
+#ifndef RELU_GPU_H
+#define RELU_GPU_H
 
 
 #include "../utils/module.h"

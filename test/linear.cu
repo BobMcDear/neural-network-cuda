@@ -22,8 +22,15 @@ int main(){
         sz_weights = n_in*n_out;
         sz_out = bs*n_out;
 
-        get_data(inp_cpu, out_cpu, inp_gpu, out_gpu, bs, n_in, n_out);
-
+        inp_cpu = new float[sz_inp];
+        out_cpu = new float[sz_out];
+    
+        cudaMallocManaged(&inp_gpu, sz_inp*sizeof(float));
+        cudaMallocManaged(&out_gpu, sz_out*sizeof(float));
+    
+        fill_array(inp_cpu, sz_inp);
+        set_eq(inp_gpu, inp_cpu, sz_inp);
+        
         Linear_CPU lin_cpu(bs, n_in, n_out);
         Linear_GPU lin_gpu(bs, n_in, n_out);
         set_eq(lin_gpu.weights, lin_cpu.weights, sz_weights);
@@ -33,21 +40,6 @@ int main(){
 
         std::cout << "Result of the forward pass" << std::endl; 
         test_res(lin_cpu.out, lin_gpu.out, sz_out);    
-
-        lin_cpu.backward();
-        lin_cpu.backward();
-
-        std::cout << "Result of the backward pass" << std::endl; 
-        test_res(lin_cpu.inp, lin_gpu.inp, sz_inp);
-
-        lin_cpu.update();
-        lin_gpu.update();
-
-        std::cout << "Result of the update" << std::endl;
-        std::cout << "Weights" << std::endl;
-        test_res(lin_cpu.weights, lin_gpu.weights, sz_weights);
-        std::cout << "Bias" << std::endl;
-        test_res(lin_cpu.bias, lin_gpu.bias, n_out);
     }
     
     return 0;

@@ -3,7 +3,7 @@
 
 
 __global__
-void linear_forward(float *inp, float *weights, float *bias, float *out, int bs, int n_in, int n_out){
+void linear_forward_gpu(float *inp, float *weights, float *bias, float *out, int bs, int n_in, int n_out){
     int row = blockDim.y*blockIdx.y + threadIdx.y, col = blockDim.x*blockIdx.x + threadIdx.x;
     int ind_inp, ind_weights, ind_out;
 
@@ -22,7 +22,7 @@ void linear_forward(float *inp, float *weights, float *bias, float *out, int bs,
 
 
 __global__
-void linear_backward(float *inp, float *weights, float *out, int bs, int n_in, int n_out){
+void linear_backward_gpu(float *inp, float *weights, float *out, int bs, int n_in, int n_out){
     int row = blockDim.y*blockIdx.y + threadIdx.y, col = blockDim.x*blockIdx.x + threadIdx.x;
     int ind_inp, ind_weights, ind_out;
 
@@ -40,7 +40,7 @@ void linear_backward(float *inp, float *weights, float *out, int bs, int n_in, i
 
 
 __global__
-void linear_update(float *inp, float *weights, float *bias, float *out, int bs, int n_in, int n_out, float lr){
+void linear_update_gpu(float *inp, float *weights, float *bias, float *out, int bs, int n_in, int n_out, float lr){
     int row = blockDim.y*blockIdx.y + threadIdx.y, col = blockDim.x*blockIdx.x + threadIdx.x;
     int ind_inp, ind_weights, ind_out;
 
@@ -82,7 +82,7 @@ void Linear_GPU::forward(float *_inp, float *_out){
     dim3 n_blocks(n_block_cols, n_block_rows);
     dim3 n_threads(block_size, block_size);
 
-    linear_forward<<<n_blocks, n_threads>>>(inp, weights, bias, out, bs, n_in, n_out);
+    linear_forward_gpu<<<n_blocks, n_threads>>>(inp, weights, bias, out, bs, n_in, n_out);
     cudaDeviceSynchronize();
 }
 
@@ -93,7 +93,7 @@ void Linear_GPU::backward(){
     dim3 n_blocks(n_block_cols, n_block_rows);
     dim3 n_threads(block_size, block_size);
 
-    linear_backward<<<n_blocks, n_threads>>>(inp, cp_weights, out, bs, n_in, n_out);
+    linear_backward_gpu<<<n_blocks, n_threads>>>(inp, cp_weights, out, bs, n_in, n_out);
     cudaDeviceSynchronize();
 
     cudaFree(cp_weights);
@@ -107,6 +107,6 @@ void Linear_GPU::update(){
     dim3 n_blocks(n_block_cols, n_block_rows);
     dim3 n_threads(block_size, block_size);
 
-    linear_update<<<n_blocks, n_threads>>>(inp, weights, bias, out, bs, n_in, n_out, 0.1f);
+    linear_update_gpu<<<n_blocks, n_threads>>>(inp, weights, bias, out, bs, n_in, n_out, 0.1f);
     cudaDeviceSynchronize();
 }

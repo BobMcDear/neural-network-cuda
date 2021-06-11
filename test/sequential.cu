@@ -12,20 +12,23 @@
 
 int main(){
     int bs, n_in, n_out;
-    int sz_weights, sz_out;
-    float *inp_cpu, *out_cpu, *inp_gpu, *out_gpu;
+    int sz_inp, sz_weights;
+    float *inp_cpu, *inp_gpu, *out;
 
     for (int i=0; i<10; i++){
         std::cout << "Iteration " << i << std::endl;
         
         bs = random_int(16, 256);
         n_in = random_int(32, 64);
-        n_out = random_int(16, 32);
         
+        sz_inp = bs*n_in;
         sz_weights = n_in*n_out;
-        sz_out = bs*n_out;
 
-        get_data(inp_cpu, out_cpu, inp_gpu, out_gpu, bs, n_in, n_out);
+        inp_cpu = new float[sz_inp];
+        cudaMallocManaged(&inp_gpu, sz_inp*sizeof(float));
+    
+        fill_array(inp_cpu, sz_inp);
+        set_eq(inp_gpu, inp_cpu, sz_inp);
 
         Linear_CPU* lin_cpu = new Linear_CPU(bs, n_in, n_out);
         Linear_GPU* lin_gpu = new Linear_GPU(bs, n_in, n_out);
@@ -40,8 +43,8 @@ int main(){
         Sequential_CPU seq_cpu(layers_cpu);
         Sequential_GPU seq_gpu(layers_gpu);
 
-        seq_cpu.forward(inp_cpu, out_cpu);
-        seq_gpu.forward(inp_gpu, out_gpu);
+        seq_cpu.forward(inp_cpu, out);
+        seq_gpu.forward(inp_gpu, out);
 
         std::cout << "Result of the forward pass" << std::endl; 
         test_res(layers_cpu.back()->out, layers_gpu.back()->out, sz_out);    
