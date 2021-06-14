@@ -11,7 +11,7 @@
 
 int main(){
     int bs, n_in, n_hidden, n_epochs;
-    int sz_inp, sz_weights1;
+    int sz_inp, sz_weights1, sz_hidden;
     float *inp_cpu, *out_cpu, *inp_gpu, *out_gpu;
     
     for (int i=0; i<8; i++){
@@ -24,6 +24,7 @@ int main(){
         n_hidden = n_in/2;
         sz_inp = bs*n_in;
         sz_weights1 = n_in*n_hidden;
+        sz_hidden = bs*n_hidden;
 
         inp_cpu = new float[sz_inp];
         out_cpu = new float[bs];
@@ -36,13 +37,13 @@ int main(){
         
         fill_array(out_cpu, bs, 10);
         set_eq(out_gpu, out_cpu, bs);
-        
+
         Linear_CPU* lin1_cpu = new Linear_CPU(bs, n_in, n_hidden);
         Linear_GPU* lin1_gpu = new Linear_GPU(bs, n_in, n_hidden);
         set_eq(lin1_gpu->weights, lin1_cpu->weights, sz_weights1);
         
-        ReLU_CPU* relu1_cpu = new ReLU_CPU(bs*n_hidden);
-        ReLU_GPU* relu1_gpu = new ReLU_GPU(bs*n_hidden);
+        ReLU_CPU* relu1_cpu = new ReLU_CPU(sz_hidden);
+        ReLU_GPU* relu1_gpu = new ReLU_GPU(sz_hidden);
 
         Linear_CPU* lin2_cpu = new Linear_CPU(bs, n_hidden, 1);
         Linear_GPU* lin2_gpu = new Linear_GPU(bs, n_hidden, 1);
