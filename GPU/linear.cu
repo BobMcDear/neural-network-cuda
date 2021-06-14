@@ -33,7 +33,7 @@ void linear_backward_gpu(float *inp, float *weights, float *out, int bs, int n_i
             ind_inp = row*n_in + i;
             ind_weights = i*n_out + col;
 
-            inp[ind_inp] += weights[ind_weights]*out[ind_out];
+            atomicAdd(&inp[ind_inp], weights[ind_weights]*out[ind_out]);
         }
     }
 }
@@ -52,7 +52,7 @@ void linear_update_gpu(float *inp, float *weights, float *bias, float *out, int 
             ind_inp = row*n_in + i;
             ind_weights = i*n_out + col;
 
-            weights[ind_weights] -= lr*(inp[ind_inp]*out[ind_out]);
+            atomicAdd(&weights[ind_weights], -lr*inp[ind_inp]*out[ind_out]);
         }
     }
 }

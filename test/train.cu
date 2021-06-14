@@ -1,6 +1,5 @@
 #include <iostream>
 
-#include "utils.h"
 #include "../CPU/linear.h"
 #include "../CPU/relu.h"
 #include "../CPU/train.h"
@@ -15,8 +14,8 @@ int main(){
     int sz_inp, sz_weights1;
     float *inp_cpu, *out_cpu, *inp_gpu, *out_gpu;
     
-    for (int i=0; i<10; i++){
-        std::cout << "Iteration " << i << std::endl;
+    for (int i=0; i<8; i++){
+        std::cout << "Iteration " << i+1 << std::endl;
 
         bs = random_int(8, 64);
         n_in = random_int(16, 32);
@@ -35,7 +34,7 @@ int main(){
         fill_array(inp_cpu, sz_inp);
         set_eq(inp_gpu, inp_cpu, sz_inp);
         
-        fill_array(out_cpu, bs);
+        fill_array(out_cpu, bs, 10);
         set_eq(out_gpu, out_cpu, bs);
         
         Linear_CPU* lin1_cpu = new Linear_CPU(bs, n_in, n_hidden);
@@ -59,7 +58,8 @@ int main(){
         std::cout << "CPU" << std::endl;
         train_cpu(seq_cpu, inp_cpu, out_cpu, bs, n_in, n_epochs);
         std::cout << "GPU" << std::endl;
-        train_cpu(seq_gpu, inp_gpu, out_gpu, bs, n_in, n_epochs);
+        train_gpu(seq_gpu, inp_gpu, out_gpu, bs, n_in, n_epochs);
+        std::cout << "*********" << std::endl;
     }
     return 0;
 }

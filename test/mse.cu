@@ -1,6 +1,5 @@
 #include <iostream>
 
-#include "utils.h"
 #include "../CPU/mse.h"
 #include "../GPU/mse.h"
 #include "../utils/utils.h"
@@ -10,19 +9,22 @@ int main(){
     int bs;
     float *inp_cpu, *out_cpu, *inp_gpu, *out_gpu;
 
-    for (int i=0; i<10; i++){
-        std::cout << "Iteration " << i << std::endl;
+    for (int i=0; i<2; i++){
+        std::cout << "Iteration " << i+1 << std::endl;
         
         bs = random_int(32, 2048);
 
-        inp_cpu = new float[sz_inp];
-        out_cpu = new float[sz_out];
+        inp_cpu = new float[bs];
+        out_cpu = new float[bs];
     
         cudaMallocManaged(&inp_gpu, bs*sizeof(float));
         cudaMallocManaged(&out_gpu, bs*sizeof(float));
     
         fill_array(inp_cpu, bs);
         set_eq(inp_gpu, inp_cpu, bs);
+
+        fill_array(out_cpu, bs, 10);
+        set_eq(out_gpu, out_cpu, bs);
         
         MSE_CPU mse_cpu(bs);
         MSE_GPU mse_gpu(bs);

@@ -47,6 +47,7 @@ void test_res(float *res1, float *res2, int n){
     std::cout << "Number of zeros of res1: " << n_res1_zeros << std::endl;
     std::cout << "Number of zeros of res2: " << n_res2_zeros << std::endl;
     std::cout << "Maximum difference: " << mx << std::endl;
+    std::cout << "*********" << std::endl;
 }
 
 
@@ -82,4 +83,12 @@ void kaiming_init(float *w, int n_in, int n_out){
     for (int i=0; i<n_in*n_out; i++){
         w[i] = dist(gen);
     }
+}
+
+
+int random_int(int min, int max){
+    std::random_device rd;
+    std::mt19937 rng(rd());
+    std::uniform_int_distribution<int> dist(min, max);
+    return dist(rng);
 }

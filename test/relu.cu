@@ -1,6 +1,5 @@
 #include <iostream>
 
-#include "utils.h"
 #include "../CPU/relu.h"
 #include "../GPU/relu.h"
 #include "../utils/utils.h"
@@ -10,8 +9,8 @@ int main(){
     int bs;
     float *inp_cpu, *out_cpu, *inp_gpu, *out_gpu;
 
-    for (int i=0; i<10; i++){
-        std::cout << "Iteration " << i << std::endl;
+    for (int i=0; i<8; i++){
+        std::cout << "Iteration " << i+1 << std::endl;
         
         bs = random_int(128, 2048);
 
@@ -32,6 +31,12 @@ int main(){
 
         std::cout << "Result of the forward pass" << std::endl; 
         test_res(out_cpu, out_cpu, bs);
+
+        relu_cpu.backward();
+        relu_gpu.backward();
+
+        std::cout << "Result of the backward pass" << std::endl; 
+        test_res(relu_cpu.inp, relu_gpu.inp, bs);
     }
     
     return 0;
