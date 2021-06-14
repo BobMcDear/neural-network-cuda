@@ -58,15 +58,17 @@ void linear_update_gpu(float *inp, float *weights, float *bias, float *out, int 
 }
 
 
-Linear_GPU::Linear_GPU(int _bs, int _n_in, int _n_out){
+Linear_GPU::Linear_GPU(int _bs, int _n_in, int _n_out, float _lr){
     bs = _bs;
     n_in = _n_in;
     n_out = _n_out;
+    lr = _lr;
+
+    sz_weights = n_in*n_out;
     sz_out = bs*n_out;
     n_block_rows = (bs + block_size - 1) / block_size;
     n_block_cols = (n_out + block_size - 1) / block_size;
 
-    int sz_weights = n_in*n_out;
     cudaMallocManaged(&weights, sz_weights*sizeof(float));
     cudaMallocManaged(&bias, n_out*sizeof(float));
 
@@ -101,12 +103,12 @@ void Linear_GPU::backward(){
 
 
 void Linear_GPU::update(){
-    cudaMallocManaged(&cp_weights, n_in*n_out*sizeof(float));
-    set_eq(cp_weights, weights, n_in*n_out);
+    cudaMallocManaged(&cp_weights, sz_weights*sizeof(float));
+    set_eq(cp_weights, weights, sz_weights);
 
     dim3 n_blocks(n_block_cols, n_block_rows);
     dim3 n_threads(block_size, block_size);
-
-    linear_update_gpu<<<n_blocks, n_threads>>>(inp, weights, bias, out, bs, n_in, n_out, 0.1f);
+    
+    linear_update_gpu<<<n_blocks, n_threads>>>(inp, weights, bias, out, bs, n_in, n_out, lr);
     cudaDeviceSynchronize();
 }

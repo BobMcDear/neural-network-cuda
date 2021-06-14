@@ -24,6 +24,7 @@ void relu_backward_gpu(float *inp, float *out, int sz_out){
 
 ReLU_GPU::ReLU_GPU(int _sz_out){
     sz_out = _sz_out;
+    
     n_blocks = (sz_out + block_size - 1) / block_size;
 }
 
