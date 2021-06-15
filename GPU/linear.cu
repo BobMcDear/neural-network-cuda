@@ -4,7 +4,7 @@
 
 __global__
 void linear_forward_gpu(float *inp, float *weights, float *bias, float *out, int bs, int n_in, int n_out){
-    int row = blockDim.y*blockIdx.y + threadIdx.y, col = blockDim.x*blockIdx.x + threadIdx.x;
+    int row = blockDim.x*blockIdx.x + threadIdx.x, col = blockDim.y*blockIdx.y + threadIdx.y;
     int ind_inp, ind_weights, ind_out;
 
     if ((row < bs) && (col < n_out)){
@@ -23,7 +23,7 @@ void linear_forward_gpu(float *inp, float *weights, float *bias, float *out, int
 
 __global__
 void linear_backward_gpu(float *inp, float *weights, float *out, int bs, int n_in, int n_out){
-    int row = blockDim.y*blockIdx.y + threadIdx.y, col = blockDim.x*blockIdx.x + threadIdx.x;
+    int row = blockDim.x*blockIdx.x + threadIdx.x, col = blockDim.y*blockIdx.y + threadIdx.y;
     int ind_inp, ind_weights, ind_out;
 
     if ((row < bs) && (col < n_out)){
@@ -41,7 +41,7 @@ void linear_backward_gpu(float *inp, float *weights, float *out, int bs, int n_i
 
 __global__
 void linear_update_gpu(float *inp, float *weights, float *bias, float *out, int bs, int n_in, int n_out, float lr){
-    int row = blockDim.y*blockIdx.y + threadIdx.y, col = blockDim.x*blockIdx.x + threadIdx.x;
+    int row = blockDim.x*blockIdx.x + threadIdx.x, col = blockDim.y*blockIdx.y + threadIdx.y;
     int ind_inp, ind_weights, ind_out;
 
     if ((row < bs) && (col < n_out)){
@@ -81,7 +81,7 @@ void Linear_GPU::forward(float *_inp, float *_out){
     inp = _inp;
     out = _out;
 
-    dim3 n_blocks(n_block_cols, n_block_rows);
+    dim3 n_blocks(n_block_rows, n_block_cols);
     dim3 n_threads(block_size, block_size);
 
     linear_forward_gpu<<<n_blocks, n_threads>>>(inp, weights, bias, out, bs, n_in, n_out);
@@ -92,7 +92,7 @@ void Linear_GPU::forward(float *_inp, float *_out){
 void Linear_GPU::backward(){
     init_zero(inp, bs*n_in);
 
-    dim3 n_blocks(n_block_cols, n_block_rows);
+    dim3 n_blocks(n_block_rows, n_block_cols);
     dim3 n_threads(block_size, block_size);
 
     linear_backward_gpu<<<n_blocks, n_threads>>>(inp, cp_weights, out, bs, n_in, n_out);
@@ -106,7 +106,7 @@ void Linear_GPU::update(){
     cudaMallocManaged(&cp_weights, sz_weights*sizeof(float));
     set_eq(cp_weights, weights, sz_weights);
 
-    dim3 n_blocks(n_block_cols, n_block_rows);
+    dim3 n_blocks(n_block_rows, n_block_cols);
     dim3 n_threads(block_size, block_size);
     
     linear_update_gpu<<<n_blocks, n_threads>>>(inp, weights, bias, out, bs, n_in, n_out, lr);
