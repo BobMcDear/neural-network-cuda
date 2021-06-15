@@ -29,13 +29,13 @@ int n_zeros(float *a, int n){
 }
 
 
-void fill_array(float *a, int n, int k){
-    srand(k);
-    float r;
-    
+void fill_array(float *a, int n){
+    std::random_device rd;
+    std::mt19937 gen(rd()); 
+    std::normal_distribution<float> dist(0.0f, 1.0f); 
+
     for (int i=0; i<n; i++){
-        r = (((float) rand()) / (float) (RAND_MAX/2))-1;
-        a[i] = r;
+        a[i] = dist(gen);
     }
 }
 
@@ -77,7 +77,7 @@ void kaiming_init(float *w, int n_in, int n_out){
     float std = sqrt(2/(float) n_in);
     
     std::random_device rd;
-    std::mt19937 gen(10);//gen(rd()); 
+    std::mt19937 gen(rd()); 
     std::normal_distribution<float> dist(0.0f, std); 
 
     for (int i=0; i<n_in*n_out; i++){

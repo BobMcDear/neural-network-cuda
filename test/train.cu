@@ -35,7 +35,7 @@ int main(){
         fill_array(inp_cpu, sz_inp);
         set_eq(inp_gpu, inp_cpu, sz_inp);
         
-        fill_array(out_cpu, bs, 10);
+        fill_array(out_cpu, bs);
         set_eq(out_gpu, out_cpu, bs);
 
         Linear_CPU* lin1_cpu = new Linear_CPU(bs, n_in, n_hidden);
