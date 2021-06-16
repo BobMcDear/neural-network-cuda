@@ -87,7 +87,7 @@ void kaiming_init(float *w, int n_in, int n_out){
 
 int random_int(int min, int max){
     std::random_device rd;
-    std::mt19937 rng(rd());
+    std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(min, max);
-    return dist(rng);
+    return dist(gen);
 }

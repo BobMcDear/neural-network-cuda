@@ -5,7 +5,7 @@
 
 
 int main(){
-    int bs = 10000, n_in = 10, n_epochs = 10;
+    int bs = 100000, n_in = 50, n_epochs = 100;
     int n_hidden = n_in/2;
 
     float *inp = new float[bs*n_in], *targ = new float[bs+1];
