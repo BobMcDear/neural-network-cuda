@@ -27,9 +27,9 @@ int main(){
         sz_hidden = bs*n_hidden;
 
         inp_cpu = new float[sz_inp];
-        out_cpu = new float[bs];
-        
         cudaMallocManaged(&inp_gpu, sz_inp*sizeof(float));
+
+        out_cpu = new float[bs];
         cudaMallocManaged(&out_gpu, bs*sizeof(float));
 
         fill_array(inp_cpu, sz_inp);

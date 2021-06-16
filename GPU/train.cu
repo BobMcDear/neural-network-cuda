@@ -7,6 +7,7 @@
 
 void train_gpu(Sequential_GPU seq, float *inp, float *targ, int bs, int n_in, int n_epochs){
     MSE_GPU mse(bs);
+    
     int sz_inp = bs*n_in;
     float *cp_inp, *out;
     cudaMallocManaged(&cp_inp, sz_inp*sizeof(float));

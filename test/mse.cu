@@ -15,9 +15,9 @@ int main(){
         bs = random_int(32, 2048);
 
         inp_cpu = new float[bs];
-        out_cpu = new float[bs];
-    
         cudaMallocManaged(&inp_gpu, bs*sizeof(float));
+
+        out_cpu = new float[bs];
         cudaMallocManaged(&out_gpu, bs*sizeof(float));
     
         fill_array(inp_cpu, bs);

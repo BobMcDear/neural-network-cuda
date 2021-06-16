@@ -42,7 +42,6 @@ void linear_backward_cpu(float *inp, float *weights, float *out, int bs, int n_i
 void linear_update_cpu(float *inp, float *weights, float *bias, float *out, int bs, int n_in, int n_out, float lr){
     int ind_inp, ind_weights, ind_out;
     
-
     for (int i=0; i<bs; i++){
         for (int k=0; k<n_out; k++){
             ind_out = i*n_out + k;
@@ -52,7 +51,7 @@ void linear_update_cpu(float *inp, float *weights, float *bias, float *out, int 
                 ind_inp = i*n_in + j;
                 ind_weights = j*n_out + k;
                 
-                weights[ind_weights] -= lr*(inp[ind_inp]*out[ind_out]);
+                weights[ind_weights] -= lr*inp[ind_inp]*out[ind_out];
             }
         }
     }

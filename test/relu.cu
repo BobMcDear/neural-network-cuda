@@ -30,7 +30,7 @@ int main(){
         relu_gpu.forward(inp_gpu, out_gpu);
 
         std::cout << "Result of the forward pass" << std::endl; 
-        test_res(out_cpu, out_cpu, bs);
+        test_res(out_cpu, out_gpu, bs);
 
         relu_cpu.backward();
         relu_gpu.backward();

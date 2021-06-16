@@ -7,6 +7,7 @@
 
 void train_cpu(Sequential_CPU seq, float *inp, float *targ, int bs, int n_in, int n_epochs){
     MSE_CPU mse(bs);
+    
     int sz_inp = bs*n_in;
     float *cp_inp = new float[sz_inp], *out;
 

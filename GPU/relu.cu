@@ -1,5 +1,4 @@
 #include "relu.h"
-#include "../utils/module.h"
 
 
 __global__
