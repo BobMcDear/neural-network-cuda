@@ -9,7 +9,7 @@ int main(){
     int bs;
     float *inp_cpu, *out_cpu, *inp_gpu, *out_gpu;
 
-    for (int i=0; i<2; i++){
+    for (int i=0; i<8; i++){
         std::cout << "Iteration " << i+1 << std::endl;
         
         bs = random_int(32, 2048);

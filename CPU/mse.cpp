@@ -4,11 +4,8 @@
 void mse_forward_cpu(float *inp, float *out, int sz_out){
     float error, mse = 0;
     for (int i=0; i<sz_out; i++){
-        error = inp[i]-out[i];
-        error *= error;
-        mse += error/sz_out;
+        out[sz_out] += (inp[i]-out[i])*(inp[i]-out[i])/sz_out;
     }
-    out[sz_out] = mse;
 }
 
 
@@ -31,6 +28,8 @@ void MSE_CPU::forward(float *_inp, float *_out){
 
 
 void MSE_CPU::_forward(float *_inp, float *_out){
+    _out[sz_out] = 0.0f;
+
     mse_forward_cpu(_inp, _out, sz_out);
 }
 

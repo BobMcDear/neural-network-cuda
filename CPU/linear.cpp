@@ -4,6 +4,7 @@
 
 void linear_forward_cpu(float *inp, float *weights, float *bias, float *out, int bs, int n_in, int n_out){
     int ind_inp, ind_weights, ind_out;
+
     for (int i=0; i<bs; i++){
         for (int k=0; k<n_out; k++){
             ind_out = i*n_out + k;
@@ -88,7 +89,7 @@ void Linear_CPU::backward(){
 
     linear_backward_cpu(inp, cp_weights, out, bs, n_in, n_out);
 
-    delete [] cp_weights;
+    delete[] cp_weights;
 }
 
 
