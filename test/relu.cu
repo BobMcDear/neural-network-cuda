@@ -15,9 +15,9 @@ int main(){
         bs = random_int(128, 2048);
 
         inp_cpu = new float[bs];
-        out_cpu = new float[bs];
-    
         cudaMallocManaged(&inp_gpu, bs*sizeof(float));
+
+        out_cpu = new float[bs];
         cudaMallocManaged(&out_gpu, bs*sizeof(float));
     
         fill_array(inp_cpu, bs);
@@ -30,7 +30,7 @@ int main(){
         relu_gpu.forward(inp_gpu, out_gpu);
 
         std::cout << "Result of the forward pass" << std::endl; 
-        test_res(out_cpu, out_gpu, bs);
+        test_res(relu_cpu.out, relu_gpu.out, bs);
 
         relu_cpu.backward();
         relu_gpu.backward();

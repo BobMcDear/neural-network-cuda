@@ -17,14 +17,14 @@ int main(){
         inp_cpu = new float[bs];
         cudaMallocManaged(&inp_gpu, bs*sizeof(float));
 
-        out_cpu = new float[bs];
-        cudaMallocManaged(&out_gpu, bs*sizeof(float));
+        out_cpu = new float[bs+1];
+        cudaMallocManaged(&out_gpu, (bs+1)*sizeof(float));
     
         fill_array(inp_cpu, bs);
         set_eq(inp_gpu, inp_cpu, bs);
 
-        fill_array(out_cpu, bs);
-        set_eq(out_gpu, out_cpu, bs);
+        fill_array(out_cpu, bs+1);
+        set_eq(out_gpu, out_cpu, bs+1);
         
         MSE_CPU mse_cpu(bs);
         MSE_GPU mse_gpu(bs);
@@ -35,7 +35,7 @@ int main(){
         mse_gpu._forward(inp_gpu, out_gpu);
     
         std::cout << "Result of the forward pass" << std::endl; 
-        std::cout << out_cpu[bs]-out_gpu[bs] << std::endl;
+        std::cout << mse_cpu.out[bs]-mse_gpu.out[bs] << std::endl;
         
         mse_cpu.backward();
         mse_gpu.backward();

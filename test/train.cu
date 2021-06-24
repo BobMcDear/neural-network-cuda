@@ -60,7 +60,9 @@ int main(){
         train_cpu(seq_cpu, inp_cpu, out_cpu, bs, n_in, n_epochs);
         std::cout << "GPU" << std::endl;
         train_gpu(seq_gpu, inp_gpu, out_gpu, bs, n_in, n_epochs);
+    
         std::cout << "*********" << std::endl;
     }
+
     return 0;
 }

@@ -98,7 +98,7 @@ void Linear_GPU::backward(){
     linear_backward_gpu<<<n_blocks, n_threads>>>(inp, cp_weights, out, bs, n_in, n_out);
     cudaDeviceSynchronize();
 
-    cudaFree(cp_weights);
+    cudaFree(&cp_weights);
 }
 
 

@@ -16,4 +16,5 @@ class Sequential_GPU: public Module{
         void update();
 };
 
+
 #endif
