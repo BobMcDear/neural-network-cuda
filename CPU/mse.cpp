@@ -2,7 +2,6 @@
 
 
 void mse_forward_cpu(float *inp, float *out, int sz_out){
-    float error, mse = 0;
     for (int i=0; i<sz_out; i++){
         out[sz_out] += (inp[i]-out[i])*(inp[i]-out[i])/sz_out;
     }
