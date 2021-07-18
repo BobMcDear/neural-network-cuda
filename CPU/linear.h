@@ -14,6 +14,7 @@ class Linear_CPU: public Module{
         void forward(float *_inp, float *_out);
         void backward();
         void update();
+        ~Linear_CPU();
 };
 
 

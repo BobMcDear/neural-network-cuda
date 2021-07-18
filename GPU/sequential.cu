@@ -1,4 +1,5 @@
 #include "sequential.h"
+#include "../utils/utils.h"
 
 
 void sequential_forward_gpu(float *inp, std::vector<Module*> layers, float *out){
@@ -15,6 +16,9 @@ void sequential_forward_gpu(float *inp, std::vector<Module*> layers, float *out)
 
         inp = curr_out;
     }
+
+    cudaMallocManaged(&curr_out, sizeof(float));
+    cudaFree(curr_out);
 }
 
 
