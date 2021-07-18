@@ -62,6 +62,9 @@ int main(){
         std::cout << "Bias" << std::endl;
         test_res(lin_cpu->bias, lin_gpu->bias, n_out);
     }
+
+    delete[] inp_cpu;
+    cudaFree(inp_gpu);
     
     return 0;
 }

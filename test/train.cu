@@ -64,5 +64,11 @@ int main(){
         std::cout << "*********" << std::endl;
     }
 
+    delete[] inp_cpu;
+    cudaFree(inp_gpu);
+
+    delete[] out_cpu;
+    cudaFree(out_gpu);
+
     return 0;
 }

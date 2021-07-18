@@ -43,6 +43,12 @@ int main(){
         std::cout << "Result of the backward pass" << std::endl; 
         test_res(mse_cpu.inp, mse_gpu.inp, bs);
     }
+
+    delete[] inp_cpu;
+    cudaFree(inp_gpu);
+
+    delete[] out_cpu;
+    cudaFree(out_gpu);
     
     return 0;
 }
