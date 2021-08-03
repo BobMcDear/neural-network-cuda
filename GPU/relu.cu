@@ -37,9 +37,7 @@ void ReLU_GPU::forward(float *_inp, float *_out){
 }
 
 
-void ReLU_GPU::backward(){
-    int n_blocks = (sz_out + block_size - 1) / block_size;
-    
+void ReLU_GPU::backward(){    
     relu_backward_gpu<<<n_blocks, block_size>>>(inp, out, sz_out);
     cudaDeviceSynchronize();
 }
