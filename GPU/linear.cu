@@ -46,7 +46,7 @@ void linear_update_gpu(float *inp, float *weights, float *bias, float *out, int 
 
     if ((row < bs) && (col < n_out)){
         ind_out = row*n_out + col;
-	    atomicAdd(&bias[col], -lr*out[ind_out]);
+	atomicAdd(&bias[col], -lr*out[ind_out]);
 
         for (int i=0; i<n_in; i++){
             ind_inp = row*n_in + i;
