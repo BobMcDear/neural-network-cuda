@@ -65,6 +65,12 @@ int main(){
 
     delete[] inp_cpu;
     cudaFree(inp_gpu);
+
+    delete lin_cpu;
+    delete lin_gpu;
+
+    delete relu_cpu;
+    delete relu_gpu;
     
     return 0;
 }
