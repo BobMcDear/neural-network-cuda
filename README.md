@@ -62,8 +62,4 @@ Everything is implemented in both pure C++ (under CPU/) and CUDA/C++ (under GPU/
 
   Required arguments: ```seq``` (```Sequential_SUFFIX```, the network), ```inp``` (```float*```, the input data), ```targ``` (```float*```, the target data), ```bs``` (```int```, batch size), ```n_in``` (```int```, number of input features), ```n_epochs```, (```int```, number of epochs)
   
-### Utilities
-
-The utility functions are (under utils/):
-
-* 
+For end-to-end training with speed benchmakrs, please run ```main.cpp``` or ```main.cu``` for the CPU and GPU respectively.
