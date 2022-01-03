@@ -112,9 +112,3 @@ void Linear_GPU::update(){
     linear_update_gpu<<<n_blocks, n_threads>>>(inp, weights, bias, out, bs, n_in, n_out, lr);
     cudaDeviceSynchronize();
 }
-
-
-Linear_GPU::~Linear_GPU(){
-    cudaFree(weights);
-    cudaFree(bias);
-}

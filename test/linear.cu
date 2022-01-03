@@ -56,11 +56,5 @@ int main(){
         test_res(lin_cpu.inp, lin_gpu.inp, sz_inp);
     }
 
-    delete[] inp_cpu;
-    cudaFree(inp_gpu);
-
-    delete[] out_cpu;
-    cudaFree(out_gpu);
-    
     return 0;
 }

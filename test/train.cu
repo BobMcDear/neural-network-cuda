@@ -64,20 +64,5 @@ int main(){
         std::cout << "*********" << std::endl;
     }
 
-    delete[] inp_cpu;
-    cudaFree(inp_gpu);
-
-    delete[] out_cpu;
-    cudaFree(out_gpu);
-
-    delete lin1_cpu;
-    delete lin1_gpu;
-
-    delete lin2_cpu;
-    delete lin2_gpu;
-
-    delete relu1_cpu;
-    delete relu1_gpu;
-
     return 0;
 }

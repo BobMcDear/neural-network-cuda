@@ -32,13 +32,5 @@ int main(){
     end = std::chrono::steady_clock::now();
     std::cout << "Training time: " << (std::chrono::duration_cast<std::chrono::microseconds>(end-begin).count())/1000000.0f << std::endl;
 
-    delete[] inp;
-    delete[] targ;
-
-    delete lin1;
-    delete relu1;
-    delete lin2;
-
-
     return 0;
 }

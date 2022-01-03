@@ -14,7 +14,6 @@ class Linear_GPU: public Module{
         void forward(float *_inp, float *_out);
         void backward();
         void update();
-        ~Linear_GPU();
 };
 
 

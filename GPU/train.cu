@@ -21,7 +21,6 @@ void train_gpu(Sequential_GPU seq, float *inp, float *targ, int bs, int n_in, in
         mse.backward();
         seq.update();
     }
-    cudaFree(cp_inp);
     
     seq.forward(inp, out);
     mse._forward(seq.layers.back()->out, targ);

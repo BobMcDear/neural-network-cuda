@@ -99,9 +99,3 @@ void Linear_CPU::update(){
 
     linear_update_cpu(inp, weights, bias, out, bs, n_in, n_out, lr);
 }
-
-
-Linear_CPU::~Linear_CPU(){
-    delete[] weights;
-    delete[] bias;
-}
