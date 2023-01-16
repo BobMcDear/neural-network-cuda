@@ -18,6 +18,7 @@ Everything is implemented in both pure C++ (under ```CPU/```) and CUDA/C++ (unde
      * ```_bs``` (```int```): Batch size.
      * ```_n_in``` (```int```): Number of input features.
      * ```_n_out``` (```int```): Number of output features.
+     
     Optional arguments:
      * ```_lr``` (```float```): Learning rate.
     
