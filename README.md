@@ -1,5 +1,8 @@
 # Neural network in CUDA/C++
 
+• <strong>[Description](#description)</strong><br>
+• <strong>[Usage](#usage)</strong><br>
+
 ## Description
 This is an implementation of a neural net, completely from scratch, in CUDA/C++.
 
@@ -18,7 +21,7 @@ Everything is implemented in both pure C++ (under ```CPU/```) and CUDA/C++ (unde
      * ```_bs``` (```int```): Batch size.
      * ```_n_in``` (```int```): Number of input features.
      * ```_n_out``` (```int```): Number of output features.
-     
+    
     Optional arguments:
      * ```_lr``` (```float```): Learning rate.
     
