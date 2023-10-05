@@ -13,7 +13,7 @@ int main(){
     int bs, n_in, n_hidden, n_epochs;
     int sz_inp, sz_weights1, sz_hidden;
     float *inp_cpu, *out_cpu, *inp_gpu, *out_gpu;
-    
+
     for (int i=0; i<8; i++){
         std::cout << "Iteration " << i+1 << std::endl;
 
@@ -34,14 +34,14 @@ int main(){
 
         fill_array(inp_cpu, sz_inp);
         set_eq(inp_gpu, inp_cpu, sz_inp);
-        
+
         fill_array(out_cpu, bs);
         set_eq(out_gpu, out_cpu, bs);
 
         Linear_CPU* lin1_cpu = new Linear_CPU(bs, n_in, n_hidden);
         Linear_GPU* lin1_gpu = new Linear_GPU(bs, n_in, n_hidden);
         set_eq(lin1_gpu->weights, lin1_cpu->weights, sz_weights1);
-        
+
         ReLU_CPU* relu1_cpu = new ReLU_CPU(sz_hidden);
         ReLU_GPU* relu1_gpu = new ReLU_GPU(sz_hidden);
 
@@ -60,7 +60,7 @@ int main(){
         train_cpu(seq_cpu, inp_cpu, out_cpu, bs, n_in, n_epochs);
         std::cout << "GPU" << std::endl;
         train_gpu(seq_gpu, inp_gpu, out_gpu, bs, n_in, n_epochs);
-    
+
         std::cout << "*********" << std::endl;
     }
 

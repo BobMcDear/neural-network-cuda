@@ -8,7 +8,7 @@
 class ReLU_GPU: public Module{
     public:
         int n_blocks;
-        
+
         ReLU_GPU(int _sz_out);
         void forward(float *_inp, float *_out);
         void backward();

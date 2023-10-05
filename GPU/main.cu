@@ -12,7 +12,7 @@ int main(){
     int bs = 100000, n_in = 50, n_epochs = 100;
     int n_hidden = n_in/2;
 
-    float *inp, *targ;  
+    float *inp, *targ;
     cudaMallocManaged(&inp, bs*n_in*sizeof(float));
     cudaMallocManaged(&targ, (bs+1)*sizeof(float));
 
@@ -21,14 +21,14 @@ int main(){
     read_csv(targ, "../data/y.csv");
     end = std::chrono::steady_clock::now();
     std::cout << "Data reading time: " << (std::chrono::duration_cast<std::chrono::microseconds>(end-begin).count())/1000000.0f << std::endl;
-    
+
     Linear_GPU* lin1 = new Linear_GPU(bs, n_in, n_hidden);
     ReLU_GPU* relu1 = new ReLU_GPU(bs*n_hidden);
     Linear_GPU* lin2 = new Linear_GPU(bs, n_hidden, 1);
-    
+
     std::vector<Module*> layers = {lin1, relu1, lin2};
     Sequential_GPU seq(layers);
-    
+
     begin = std::chrono::steady_clock::now();
     train_gpu(seq, inp, targ, bs, n_in, n_epochs);
     end = std::chrono::steady_clock::now();

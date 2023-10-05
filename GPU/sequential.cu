@@ -26,7 +26,7 @@ void sequetial_update_gpu(std::vector<Module*> layers){
     for (int i=layers.size()-1; 0<=i; i--){
         Module *layer = layers[i];
 
-        layer->update(); 
+        layer->update();
         layer->backward();
     }
 }

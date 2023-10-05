@@ -9,7 +9,7 @@ class MSE_GPU: public Module{
     public:
         float *inp, *out;
         int n_blocks;
-        
+
         MSE_GPU(int _sz_out);
         void forward(float *_inp, float *_out);
         void _forward(float *_inp, float *_out);

@@ -15,7 +15,7 @@ void sequential_forward_cpu(float *inp, std::vector<Module*> layers, float *out)
 
         inp = curr_out;
     }
-    
+
     curr_out = new float[1];
     delete[] curr_out;
 }

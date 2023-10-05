@@ -9,11 +9,11 @@ void linear_forward_cpu(float *inp, float *weights, float *bias, float *out, int
         for (int k=0; k<n_out; k++){
             ind_out = i*n_out + k;
             out[ind_out] = bias[k];
-            
+
             for (int j=0; j<n_in; j++){
                 ind_inp = i*n_in + j;
                 ind_weights = j*n_out + k;
-                
+
                 out[ind_out] += inp[ind_inp]*weights[ind_weights];
             }
         }
@@ -27,11 +27,11 @@ void linear_backward_cpu(float *inp, float *weights, float *out, int bs, int n_i
     for (int i=0; i<bs; i++){
         for (int k=0; k<n_out; k++){
             ind_out = i*n_out + k;
-            
+
             for (int j=0; j<n_in; j++){
                 ind_inp = i*n_in + j;
                 ind_weights = j*n_out + k;
-                
+
                 inp[ind_inp] += weights[ind_weights]*out[ind_out];
             }
         }
@@ -42,16 +42,16 @@ void linear_backward_cpu(float *inp, float *weights, float *out, int bs, int n_i
 
 void linear_update_cpu(float *inp, float *weights, float *bias, float *out, int bs, int n_in, int n_out, float lr){
     int ind_inp, ind_weights, ind_out;
-    
+
     for (int i=0; i<bs; i++){
         for (int k=0; k<n_out; k++){
             ind_out = i*n_out + k;
-            bias[k] -= lr*out[ind_out];            
-            
+            bias[k] -= lr*out[ind_out];
+
             for (int j=0; j<n_in; j++){
                 ind_inp = i*n_in + j;
                 ind_weights = j*n_out + k;
-                
+
                 weights[ind_weights] -= lr*inp[ind_inp]*out[ind_out];
             }
         }
@@ -64,12 +64,12 @@ Linear_CPU::Linear_CPU(int _bs, int _n_in, int _n_out, float _lr){
     n_in = _n_in;
     n_out = _n_out;
     lr = _lr;
-    
+
     sz_weights = n_in*n_out;
     sz_out = bs*n_out;
 
     weights = new float[sz_weights];
-    bias = new float[n_out]; 
+    bias = new float[n_out];
 
     kaiming_init(weights, n_in, n_out);
     init_zero(bias, n_out);

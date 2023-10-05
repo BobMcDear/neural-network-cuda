@@ -19,18 +19,18 @@ int main(){
 
     for (int i=0; i<8; i++){
         std::cout << "Iteration " << i+1 << std::endl;
-        
+
         bs = random_int(16, 256);
         n_in = random_int(32, 64);
         n_out = random_int(1, 4);
-        
+
         sz_inp = bs*n_in;
         sz_weights = n_in*n_out;
         sz_out = bs*n_out;
 
         inp_cpu = new float[sz_inp];
         cudaMallocManaged(&inp_gpu, sz_inp*sizeof(float));
-    
+
         fill_array(inp_cpu, sz_inp);
         set_eq(inp_gpu, inp_cpu, sz_inp);
 
@@ -50,14 +50,14 @@ int main(){
         seq_cpu.forward(inp_cpu, out);
         seq_gpu.forward(inp_gpu, out);
 
-        std::cout << "Result of the forward pass" << std::endl; 
+        std::cout << "Result of the forward pass" << std::endl;
         test_res(seq_cpu.layers.back()->out, seq_gpu.layers.back()->out, sz_out);
 
         seq_cpu.update();
         seq_gpu.update();
 
         std::cout << "Result of the update" << std::endl;
-        std::cout << "Weights" << std::endl; 
+        std::cout << "Weights" << std::endl;
         test_res(lin_cpu->weights, lin_gpu->weights, sz_weights);
         std::cout << "Bias" << std::endl;
         test_res(lin_cpu->bias, lin_gpu->bias, n_out);

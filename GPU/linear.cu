@@ -14,7 +14,7 @@ void linear_forward_gpu(float *inp, float *weights, float *bias, float *out, int
         for (int i=0; i<n_in; i++){
             ind_inp = row*n_in + i;
             ind_weights = i*n_out + col;
-            
+
             out[ind_out] += inp[ind_inp]*weights[ind_weights];
         }
     }
@@ -108,7 +108,7 @@ void Linear_GPU::update(){
 
     dim3 n_blocks(n_block_rows, n_block_cols);
     dim3 n_threads(block_size, block_size);
-    
+
     linear_update_gpu<<<n_blocks, n_threads>>>(inp, weights, bias, out, bs, n_in, n_out, lr);
     cudaDeviceSynchronize();
 }
