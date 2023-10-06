@@ -30,4 +30,5 @@ void ReLU_CPU::forward(float *_inp, float *_out){
 
 void ReLU_CPU::backward(){
     relu_backward_cpu(inp, out, sz_out);
+    delete[] out;
 }

@@ -99,6 +99,7 @@ void Linear_GPU::backward(){
     cudaDeviceSynchronize();
 
     cudaFree(cp_weights);
+    cudaFree(out);
 }
 
 

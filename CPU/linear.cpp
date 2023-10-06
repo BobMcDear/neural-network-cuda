@@ -90,6 +90,7 @@ void Linear_CPU::backward(){
     linear_backward_cpu(inp, cp_weights, out, bs, n_in, n_out);
 
     delete[] cp_weights;
+    delete[] out;
 }
 
 
