@@ -1,3 +1,5 @@
+_For those interested in writing high-performance GPU kernels for deep learning modules without expertise in CUDA,_ [attorch](https://github.com/BobMcDear/attorch) _might be of interest._
+
 # Neural network in CUDA/C++
 
 • <strong>[Description](#description)</strong><br>
